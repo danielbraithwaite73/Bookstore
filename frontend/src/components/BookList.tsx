@@ -4,8 +4,8 @@
  */
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import type { Book } from './types/Book';
-import { API_BASE, BOOKS_RETURN_PATH_KEY } from './constants';
+import type { Book } from '../types/Book';
+import { API_BASE, BOOKS_RETURN_PATH_KEY } from '../constants';
 
 /** Page-size selector only allows these values so the API always receives a known pageSize. */
 const ALLOWED_PAGE_SIZES = [5, 10, 20] as const;

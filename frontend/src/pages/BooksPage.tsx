@@ -3,7 +3,7 @@
  * Category selection is reflected as repeated `cat` query params so BookList and the URL stay in sync.
  */
 import { useSearchParams } from 'react-router-dom';
-import BookList from '../BookList';
+import BookList from '../components/BookList';
 import CartSummary from '../components/CartSummary';
 import CategoryFilter from '../components/CategoryFilter';
 
