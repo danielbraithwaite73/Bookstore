@@ -1,17 +1,19 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
 namespace WebApplication1.Data;
-// This file is used to create the database context for the bookstore application.
-// It defines the BookstoreContext class, which inherits from DbContext.
-// This class will be used to interact with the database.
+
+/// <summary>
+/// EF Core database context for the bookstore. Registered in <c>Program.cs</c> and injected into controllers.
+/// The connection string name used here matches configuration (e.g. appsettings.json "BookConnection").
+/// </summary>
 public partial class BookstoreContext : DbContext
 {
-    public BookstoreContext(DbContextOptions<BookstoreContext> options) : base(options) 
+    public BookstoreContext(DbContextOptions<BookstoreContext> options) : base(options)
     {
-
     }
-    public DbSet<Book> Books { get; set; }
 
+    /// <summary>All books in the SQLite database.</summary>
+    public DbSet<Book> Books { get; set; }
 }

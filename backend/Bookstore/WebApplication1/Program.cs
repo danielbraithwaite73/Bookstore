@@ -3,22 +3,19 @@ using WebApplication1.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
+// Web API: JSON controllers + generated OpenAPI document in Development.
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
-// Add the database context to the services container
+// Entity Framework: SQLite via named connection string "BookConnection".
 builder.Services.AddDbContext<BookstoreContext>(options =>
-options.UseSqlite(builder.Configuration.GetConnectionString("BookConnection")));
+    options.UseSqlite(builder.Configuration.GetConnectionString("BookConnection")));
 
-// Add CORS services to the container
+// CORS must be registered before UseCors in the pipeline.
 builder.Services.AddCors();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
@@ -26,7 +23,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// Enable CORS for the specified origin, which will be my react app running on localhost:3000
+// Browser security: only this origin may call the API from JavaScript.
+// Must match the Vite dev server (see frontend vite.config.ts port).
 app.UseCors(x => x.WithOrigins("http://localhost:3000"));
 
 app.UseAuthorization();
