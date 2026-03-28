@@ -78,31 +78,52 @@ function BookList() {
             </div>
 
             {/* Pagination Controls */}
-            <nav aria-label="Page navigation" className="mt-4">
-                <ul className="pagination justify-content-center">
+           <nav aria-label="Page navigation" className="mt-4">
+                <ul className="pagination justify-content-center flex-wrap">
+                    
+                    {/* Previous Button */}
                     <li className={`page-item ${pageNum === 1 ? 'disabled' : ''}`}>
-                        {/* Previous Button */}
-                        <button className="page-link" onClick={() => setPageNum(pageNum - 1)}>
-                            Previous
-                        </button>
+                    <button 
+                        type="button" 
+                        className="page-link" 
+                        disabled={pageNum === 1} 
+                        onClick={() => setPageNum(pageNum - 1)}
+                    >
+                        Previous
+                    </button>
                     </li>
-                    {/* Page Numbers, dynamically generated */}
-                    {[...Array(totalPages)].map((_, index) => (
-                        <li key={index + 1} className={`page-item ${pageNum === index + 1 ? 'active' : ''}`}>
-                            <button className="page-link" onClick={() => setPageNum(index + 1)}>
-                                {index + 1}
-                            </button>
-                        </li>
-                    ))}
 
-                    <li className={`page-item ${pageNum === totalPages ? 'disabled' : ''}`}>
-                        {/* Next Button */}
-                        <button className="page-link" onClick={() => setPageNum(pageNum + 1)}>
-                            Next
+                    {/* Page Numbers */}
+                    {[...Array(totalPages)].map((_, index) => {
+                    const isCurrentPage = pageNum === index + 1;
+                    return (
+                        <li key={index + 1} className={`page-item ${isCurrentPage ? 'active' : ''}`}>
+                        <button 
+                            type="button" 
+                            className="page-link" 
+                            disabled={isCurrentPage} 
+                            onClick={() => setPageNum(index + 1)}
+                        >
+                            {index + 1}
                         </button>
+                        </li>
+                    );
+                    })}
+
+                    {/* Next Button */}
+                    <li className={`page-item ${pageNum === totalPages ? 'disabled' : ''}`}>
+                    <button 
+                        type="button" 
+                        className="page-link" 
+                        disabled={pageNum === totalPages} 
+                        onClick={() => setPageNum(pageNum + 1)}
+                    >
+                        Next
+                    </button>
                     </li>
+
                 </ul>
-            </nav>
+                </nav>
 
             {/* Results per page selector */}
             <div className="mt-3 text-center pb-5">
