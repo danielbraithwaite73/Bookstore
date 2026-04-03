@@ -1,13 +1,11 @@
-/**
- * Top-level shell: provides cart state to the whole tree and declares client-side routes.
- * CartProvider wraps Router so any route (including /cart) can call useCart().
- */
+// CartProvider wraps Router so useCart works on every route (e.g. /cart).
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
 import BooksPage from './pages/BooksPage';
 import CartPage from './pages/CartPage';
 import AddToCartPage from './pages/AddToCartPage';
+import AdminBooksPage from './pages/AdminBooksPage';
 
 function App() {
   return (
@@ -18,6 +16,7 @@ function App() {
           <Route path="/books" element={<BooksPage />} />
           <Route path="/add-to-cart/:bookId" element={<AddToCartPage />} />
           <Route path="/cart" element={<CartPage />} />
+          <Route path="/adminbooks" element={<AdminBooksPage />} />
         </Routes>
       </Router>
     </CartProvider>

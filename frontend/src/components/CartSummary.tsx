@@ -1,7 +1,3 @@
-/**
- * Compact cart affordance on the browse page; item count is sum of line quantities, dollar total is Σ (price × qty).
- * Implemented as a focusable control so keyboard users can open the cart like mouse users.
- */
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 

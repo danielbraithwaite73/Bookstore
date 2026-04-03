@@ -1,7 +1,3 @@
-/**
- * Full cart view: per-line subtotals (price × quantity), editable quantities, and order total.
- * "Continue shopping" restores the list URL saved when the user clicked Add to cart (see BookList).
- */
 import { useNavigate } from 'react-router-dom';
 import type { CartItem } from '../types/CartItem';
 import { useCart } from '../context/CartContext';

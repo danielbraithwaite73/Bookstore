@@ -1,0 +1,55 @@
+/* Admin book forms: theme tokens from index.css, Bootstrap for layout. */
+
+.book-admin-form {
+  max-width: 52rem;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border, #dee2e6);
+}
+
+.book-admin-form .card-header {
+  font-family: var(--heading, system-ui, sans-serif);
+  letter-spacing: -0.02em;
+}
+
+.book-admin-form .card-body {
+  padding: 1.25rem 1.5rem 1.5rem;
+}
+
+.book-admin-form .form-label {
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--text-h, #212529);
+  margin-bottom: 0.35rem;
+}
+
+.book-admin-form .form-control:focus {
+  border-color: var(--accent-border, rgba(170, 59, 255, 0.5));
+  box-shadow: 0 0 0 0.2rem var(--accent-bg, rgba(170, 59, 255, 0.15));
+}
+
+.book-admin-form .form-actions {
+  margin-top: 0.5rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  .book-admin-form {
+    background: var(--bg, #16171d);
+  }
+
+  .book-admin-form .form-control {
+    background-color: var(--code-bg, #1f2028);
+    border-color: var(--border, #2e303a);
+    color: var(--text-h, #f3f4f6);
+  }
+
+  .book-admin-form .form-control::placeholder {
+    color: var(--text, #9ca3af);
+  }
+
+  .book-admin-form .input-group-text {
+    background-color: var(--code-bg, #1f2028);
+    border-color: var(--border, #2e303a);
+    color: var(--text, #9ca3af);
+  }
+}

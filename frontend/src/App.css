@@ -1,3 +1,4 @@
+/* Above most page content; below Bootstrap modals (1055+) if you add them later. */
 .cart-summary-floating {
   position: fixed;
   top: 12px;

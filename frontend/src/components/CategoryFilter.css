@@ -1,5 +1,3 @@
-/* Layout for the sidebar category checklist (used with CategoryFilter.tsx). */
-
 .category-filter {
   display: flex;
   flex-direction: column;

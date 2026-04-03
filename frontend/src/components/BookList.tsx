@@ -1,13 +1,9 @@
-/**
- * Paginated book grid for /books. List state lives in the URL (search params) so filters and page
- * are bookmarkable and so "Continue shopping" can restore the exact query string from sessionStorage.
- */
+/** Storefront list: paging, sort, and category filters live in the URL (shareable; also used for continue-shopping). */
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import type { Book } from '../types/Book';
 import { API_BASE, BOOKS_RETURN_PATH_KEY } from '../constants';
 
-/** Page-size selector only allows these values so the API always receives a known pageSize. */
 const ALLOWED_PAGE_SIZES = [5, 10, 20] as const;
 
 function BookList() {
@@ -24,7 +20,7 @@ function BookList() {
   const sortTitle = searchParams.get('sortTitle') === 'true';
   const selectedCategories = searchParams.getAll('cat');
 
-  // Stable dependency for useEffect when category filters change (compare by value, not array reference).
+  // useMemo: stable string for effect deps when the same categories are toggled (new array reference each render).
   const categoriesKey = useMemo(
     () => selectedCategories.slice().sort().join('|'),
     [selectedCategories]
@@ -33,7 +29,6 @@ function BookList() {
   const [books, setBooks] = useState<Book[]>([]);
   const [totalPages, setTotalPages] = useState<number>(1);
 
-  /** Updates list-related query keys without dropping unrelated params (e.g. cat). Uses replace to avoid cluttering history. */
   const updateQuery = (patch: {
     page?: number;
     pageSize?: number;
@@ -56,7 +51,6 @@ function BookList() {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        // Backend expects repeated "categories" keys, same pattern as WaterProject "projectTypes".
         const categoryParams = selectedCategories
           .map((cat) => `categories=${encodeURIComponent(cat)}`)
           .join('&');
@@ -73,7 +67,6 @@ function BookList() {
         setBooks(list);
         setTotalPages(pages);
 
-        // After filtering, the current page may exceed the new page count—clamp to the last valid page.
         if (pageNum > pages) {
           updateQuery({ page: pages });
         }
@@ -85,7 +78,6 @@ function BookList() {
     fetchBooks();
   }, [pageSize, pageNum, sortTitle, categoriesKey]);
 
-  /** Persists return location for CartPage, then navigates with book in state to avoid an extra GET when possible. */
   const goAddToCart = (book: Book) => {
     sessionStorage.setItem(
       BOOKS_RETURN_PATH_KEY,

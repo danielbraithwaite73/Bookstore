@@ -1,8 +1,4 @@
-/**
- * Main shopping/browse page: category sidebar + book list + floating cart summary.
- * Category selection is reflected as repeated `cat` query params so BookList and the URL stay in sync.
- */
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import BookList from '../components/BookList';
 import CartSummary from '../components/CartSummary';
 import CategoryFilter from '../components/CategoryFilter';
@@ -38,6 +34,9 @@ function BooksPage() {
         </div>
         <div className="col-md-9">
           <BookList />
+          <p className="text-center text-muted small mt-3 mb-0">
+            <Link to="/adminbooks">Admin: manage books</Link>
+          </p>
         </div>
       </div>
     </div>

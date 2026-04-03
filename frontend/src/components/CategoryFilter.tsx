@@ -1,7 +1,4 @@
-/**
- * Sidebar checklist of categories from the API. This component does not own URL state itself:
- * the parent (BooksPage) writes selected values to search params so BookList refetches with the same filters.
- */
+/** Checklist only; BooksPage mirrors selection to URL search params (`cat`). */
 import { useEffect, useState } from 'react';
 import { API_BASE } from '../constants';
 import './CategoryFilter.css';

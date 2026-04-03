@@ -3,15 +3,12 @@ using WebApplication1.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Web API: JSON controllers + generated OpenAPI document in Development.
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
-// Entity Framework: SQLite via named connection string "BookConnection".
 builder.Services.AddDbContext<BookstoreContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("BookConnection")));
 
-// CORS must be registered before UseCors in the pipeline.
 builder.Services.AddCors();
 
 var app = builder.Build();
@@ -23,9 +20,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// Browser security: only this origin may call the API from JavaScript.
-// Must match the Vite dev server (see frontend vite.config.ts port).
-app.UseCors(x => x.WithOrigins("http://localhost:3000"));
+// Cross-origin calls from the Vite app need methods + headers allowed or PUT/DELETE preflight fails (fetch shows "Failed to fetch").
+app.UseCors(x =>
+    x.WithOrigins("http://localhost:3000")
+        .AllowAnyHeader()
+        .AllowAnyMethod());
 
 app.UseAuthorization();
 

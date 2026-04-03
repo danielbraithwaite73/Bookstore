@@ -1,7 +1,4 @@
-/**
- * Chooses quantity and adds a line to the cart. Prefers book data passed through React Router location.state
- * (no flicker); falls back to GET /Books/:id when the user lands here without state (e.g. refresh).
- */
+/** Uses location.state.book when present; otherwise GET /Books/:id (e.g. refresh). */
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import type { Book } from '../types/Book';
