@@ -13,18 +13,20 @@ builder.Services.AddCors();
 
 var app = builder.Build();
 
+// Run CORS before redirects/auth so every response (including preflight) gets the headers. Required for browser fetch from Static Web Apps.
+app.UseCors(x =>
+    x.WithOrigins(
+            "http://localhost:3000",
+            "https://ambitious-pebble-0e9100f03.2.azurestaticapps.net")
+        .AllowAnyHeader()
+        .AllowAnyMethod());
+
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
 
 app.UseHttpsRedirection();
-
-// Cross-origin calls from the Vite app need methods + headers allowed or PUT/DELETE preflight fails (fetch shows "Failed to fetch").
-app.UseCors(x =>
-    x.WithOrigins("http://localhost:3000")
-        .AllowAnyHeader()
-        .AllowAnyMethod());
 
 app.UseAuthorization();
 
