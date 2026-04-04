@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/5db59ea3-a75c-413b-b27f-785b6a9fde66/resourceGroups/appsvc_windows_westeurope/providers/Microsoft.Web/sites/bookstore-daniel-backendfr",
+    "appService.deploySubpath": "backend\\Bookstore\\WebApplication1\\publish"
+}

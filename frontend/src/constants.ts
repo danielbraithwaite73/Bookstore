@@ -1,5 +1,8 @@
-/** Must match the ASP.NET dev URL/port (see backend launchSettings). */
-export const API_BASE = 'https://localhost:5000';
+/**
+ * API origin (no trailing slash). Override with VITE_API_BASE in .env.development / .env.production.
+ */
+export const API_BASE =
+  import.meta.env.VITE_API_BASE ?? 'https://localhost:5000';
 
 export const CART_STORAGE_KEY = 'bookstore_cart_session';
 
