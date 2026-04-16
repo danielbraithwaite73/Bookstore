@@ -9,17 +9,18 @@ builder.Services.AddOpenApi();
 builder.Services.AddDbContext<BookstoreContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("BookConnection")));
 
-builder.Services.AddCors();
+// AllowAnyOrigin: any website can call this API from the browser (simplest for demos). Do not use with cookie auth (AllowCredentials).
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
 
 var app = builder.Build();
-
-// Run CORS before redirects/auth so every response (including preflight) gets the headers. Required for browser fetch from Static Web Apps.
-app.UseCors(x =>
-    x.WithOrigins(
-            "http://localhost:3000",
-            "https://ambitious-pebble-0e9100f03.2.azurestaticapps.net")
-        .AllowAnyHeader()
-        .AllowAnyMethod());
 
 if (app.Environment.IsDevelopment())
 {
@@ -27,6 +28,11 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// CORS must run after UseRouting and before UseAuthorization, or Allow-Origin may not appear on API responses.
+app.UseRouting();
+
+app.UseCors();
 
 app.UseAuthorization();
 
